@@ -4,13 +4,25 @@ class MembersController < ApplicationController
   # GET /members
   def index
     @members = Member.all
+    response = @members.map do |member|
+      {
+        name: member.name,
+        website: member.website,
+        friends: member.friends.length
+      }
+    end
 
-    render json: @members
+    render json: response
   end
 
   # GET /members/1
   def show
-    render json: @member
+    render json: {
+      name: @member.name,
+      website: @member.website,
+      friends: @member.friends.map { |friend| url_for(friend) },
+      keywords: @member.keywords
+    }
   end
 
   # POST /members
