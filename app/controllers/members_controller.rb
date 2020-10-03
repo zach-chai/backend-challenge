@@ -17,6 +17,9 @@ class MembersController < ApplicationController
   def create
     @member = Member.new(member_params)
 
+    scraper = WebScraper.new @member.website
+    @member.keywords = scraper.scrape
+
     if @member.save
       render json: @member, status: :created, location: @member
     else
