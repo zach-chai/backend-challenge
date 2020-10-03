@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class WebScraper
   def initialize(website)
     @website = website

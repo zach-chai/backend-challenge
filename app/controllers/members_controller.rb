@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: [:show, :update, :destroy]
+  before_action :set_member, only: [:show, :update, :destroy, :find_experts]
 
   # GET /members
   def index
@@ -51,6 +51,16 @@ class MembersController < ApplicationController
   # DELETE /members/1
   def destroy
     @member.destroy
+  end
+
+  def find_experts
+    expert_finder = ExpertFinder.new(@member, params[:topic])
+    result = expert_finder.find_expert.map do |member|
+      { name: member.name, profile: url_for(member) }
+    end
+    render json: {
+      path: result
+    }
   end
 
   private
