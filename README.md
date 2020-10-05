@@ -1,4 +1,62 @@
-# EverlyWell Backend Challenge
+# Submission
+
+## Usage
+
+Requirements:
+- docker
+- docker-compose
+
+Start stack with docker
+```
+docker-compose up -d
+```
+
+Setup database
+```
+docker-compose run app rails db:setup
+```
+
+### JSON Endpoints
+
+Postman collection - https://www.getpostman.com/collections/26dfa2c687b68d8bfbc5
+
+Create member
+```
+POST http://localhost:3000/members
+
+{
+  name: "member name",
+  website: "http://profile.example
+}
+```
+
+Get member
+```
+GET http://localhost:3000/members/:id
+```
+
+List members
+```
+GET http://localhost:3000/members
+```
+
+Create friendship
+```
+POST http://localhost:3000/friendships
+
+{
+  member_id: :member_id1,
+  friend_id: :member_id2
+}
+```
+
+Find expert
+```
+GET http://localhost:3000/members/:id/find_experts?topic=
+```
+
+
+## EverlyWell Backend Challenge
 
 ### Overview
 
@@ -38,7 +96,7 @@ We encourage the use of any libraries for everything except the search functiona
 ### Things we like:
 
 * Well commented & well organized code
-* Quality over quantity (the code you write should be good) 
+* Quality over quantity (the code you write should be good)
 * Small, meaningful, commits
 * Tests!
 * Respect for the time limit - if you are in the midst of some work that you would like to finish, but have hit the 4 hour time limit, please split additional work into a separate branch, to be evaluated separately
