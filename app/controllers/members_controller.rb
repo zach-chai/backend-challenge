@@ -55,7 +55,8 @@ class MembersController < ApplicationController
 
   def find_experts
     expert_finder = ExpertFinder.new(@member, params[:topic])
-    result = expert_finder.find_expert.map do |member|
+    expert_path = expert_finder.find_expert || []
+    result = expert_path.map do |member|
       { name: member.name, profile: url_for(member) }
     end
     render json: {

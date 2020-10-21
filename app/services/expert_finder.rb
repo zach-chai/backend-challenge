@@ -7,8 +7,8 @@ class ExpertFinder
   end
 
   def find_expert
-    expert = fetch_experts.first
-    calculate_path(expert)
+    experts = fetch_experts
+    expert = calculate_path(experts)
     get_path(expert)
   end
 
@@ -20,7 +20,7 @@ class ExpertFinder
           .where("array_to_string(keywords, '||') ILIKE :topic", topic: "%#{@topic}%")
   end
 
-  def calculate_path(expert)
+  def calculate_path(experts)
     members = [@member]
     visited = Set.new(members)
 
@@ -33,9 +33,9 @@ class ExpertFinder
         visited.add(friend)
         @path[friend] = current
 
-        if friend == expert
+        if experts.include? friend
           @found_path = true
-          return
+          return friend
         end
       end
     end
